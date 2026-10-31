@@ -4,7 +4,7 @@ on:
   pull_request:
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
@@ -20,4 +20,9 @@ jobs:
           python-version: "3.13"
       # Rich's own needs (versions from its poetry.lock); Rich itself isn't installed, so Bite's copies import their own code.
       - run: python -m pip install pytest pygments==2.19.2 markdown-it-py attrs
-      - uses: connabyss/bite@v0.5.1
+      - uses: connabyss/bite@main
+        with:
+          write-tests: true
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          open-pr: true
+          args: --budget 0.50
