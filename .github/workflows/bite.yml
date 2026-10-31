@@ -1,0 +1,20 @@
+name: bite
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  bite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      # Install what your tests need here, e.g. actions/setup-python, then set test_command in a .bite.ini file
+      # (see https://github.com/connabyss/bite).
+      - uses: connabyss/bite@v0.5.1
